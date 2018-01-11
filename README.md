@@ -1,137 +1,168 @@
-![Jekyll Version](https://img.shields.io/badge/Jekyll-3.1.2-red.svg)
-![Build Status](https://gitlab.com/jekyll-themes/default-bundler/badges/master/build.svg)
+# feature-blog-jekyll [![Code Climate](https://codeclimate.com/github/lavkumarv/feature-blog-jekyll/badges/gpa.svg)](https://codeclimate.com/github/lavkumarv/feature-blog-jekyll) <a href="https://codeclimate.com/github/lavkumarv/feature-blog-jekyll"><img src="https://codeclimate.com/github/lavkumarv/feature-blog-jekyll/badges/issue_count.svg" /></a>
 
-----
+Feature Blog is a minimalist, beautiful, responsive theme for Jekyll. It is built using the Bootstrap 3.
 
-View Demo: https://lorepirri.gitlab.io/jekyll-theme-simple-blog/
+Home Page:
 
------
-# Simple Blog Theme
-
-*Simple Blog is a Jekyll theme for Gitlab or GitHub Pages. It is based on [Cayman Blog Theme](https://github.com/lorepirri/cayman-blog). You can [preview the theme to see what it looks like](https://lorepirri.gitlab.io/jekyll-theme-simple-blog/), or even [use it today](#install).*
-
-<img src="https://gitlab.com/lorepirri/jekyll-theme-simple-blog/raw/master/simple-blog-theme.png" alt="Thumbnail of jekyll-theme-simple-blog" style="max-width:30%; border: 1px solid grey;"/>
+![home](home.jpg "home")
 
 ## Features
 
-- Blog
-- Responsive
-- Minimal
-- Multi-language
-- SEO optimized for Facebook preview
-- Facebook plugins integration (Page, Comments, Messenger, Like)
-- Facebook Mirring Comments
-- Social buttons (facebook, instagram, linkedin, twitter, github, gitlab)
-- RSS feed multi-language
+* Twitter Bootstrap 3
+* Option to set featured image & video in post
+* Pagination support
+* Disqus comments if you choose to enable
+* MailChip Integration for subscription
+* Tags for [Open Graph](https://developers.facebook.com/docs/opengraph/), [Twitter Cards](https://dev.twitter.com/docs/cards) and Schema.org for a better social sharing experience
+* Support for recent post
+* SEO Enabled theme
+* Beautifully crafted 404 page
+* Custom categories and tags pages
+* Ajax based search
+* Sitemap for search engines
+* Google Fonts
+* Font awesome icons
+* Easy to configure and customize
 
-## Install
+## Basic Setup for a new Jekyll site
 
-Simple Blog Theme is 100% compatible with GitLab and GitHub Pages.
+1. [Install Jekyll](http://jekyllrb.com) if you haven't already.
+2. Fork the [Feature Blog Theme](https://github.com/lavkumarv/feature-blog-jekyll/fork)
+3. Clone the repo you just forked.
+4. Edit `_config.yml` to personalize your site.
+5. Check out the sample posts in `_posts` to see examples for pulling in large feature images, assigning categories and tags, and other YAML data.
+6. Read the documentation below for further customization pointers and documentation.
 
-### Install as a Fork
+---
 
-1. [Fork the repo](https://gitlab.com/lorepirri/jekyll-theme-simple-blog)
-2. Clone down the repo with one of the two:
-    * ssh `$ git clone git@gitlab.com:your-username/jekyll-theme-simple-blog.git`
-    * https: `$ git clone https://gitlab.com/lorepirri/jekyll-theme-simple-blog.git`
-3. Empty the `_posts/` folder
-4. Install bundler and gems with `$ script/bootstrap`
-5. Run Jekyll with `$ script/server`
-6. Modify `_config.yml`, `about-en.md`, `contact-en.md`, and the other pages for your project
-6. Write your posts in `_posts/en` and `_posts/<other-language>`
-7. [Customize the theme](customizing)
+## Setup for an Existing Jekyll site
 
-### SEO tags
+`_config.yml` file:
 
-Simple Blog includes simple SEO tags from [jekyll-social-metatags](https://github.com/lorepirri/jekyll-social-metatags). Have a look at the page for its usage.
+``` yaml
+# Basic settings
+description:  This is personal blog.
+baseurl: "/"
+url: "https://lavkumarv.github.io"
+twitter_username: LAV_K_V
+github_username:  lavkumarv
+include: ['_pages']
 
-The usage is compatible with the plugin [Jekyll SEO Tag](https://github.com/jekyll/jekyll-seo-tag), which provides a battle-tested template of crowdsourced best-practices.
+# Build settings
+markdown:    kramdown
+highlighter: pygments
+lsi:         false
+excerpt_separator: "\n\n"
+gems:
+  - jekyll-feed
+  - jekyll-paginate
+exclude:
+  - Gemfile
+  - Gemfile.lock
 
-To switch to a better SEO tags however, one should install [Jekyll Feed plugin](https://github.com/jekyll/jekyll-feed):
+# pagination
+gems: [jekyll-paginate]
+paginate: 5
+paginate_path: "/page:num/"
 
-1. Add this line to your site's Gemfile:
+# Enable comments
+comments: true
 
-    ```ruby
-    gem 'jekyll-seo-tag'
-    ```
+# Markdown settings
+kramdown:
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
 
-2. And then add this line to your site's `_config.yml`:
+  coderay:
+    coderay_wrap:              div
+    coderay_line_numbers:      inline
+    coderay_line_number_start: 1
+    coderay_tab_width:         4
+    coderay_bold_every:        10
+    coderay_css:               style
+---
+```
+---
+Global Configuration( global.yml):
+``` yaml
+# Site Settings
+title: 'Lav Vishwakarma'
+description: 'My personal Blog'
+url: 'https://lavkumarv.github.io'
 
-    ```yml
-    gems:
-      - jekyll-seo-tag
-    ```
+# Admin Settings
+admin_name: 'Lav Vishwakarma'
+admin_email: 'lav.kumar.dev@gmail.com'
 
-3. Replace with the following, the `<!-- jekyll-seo-tag -->` comment in your site's `default.html`:
+#####################################################################
+#About Page
+author_name: 'Lav Kumar Vishwakarma'
+author_profession: 'Full Stack Developer'
+author_description: 'A computer science graduate student at University Institute of Technology,
+RGPV with great interest in Software development and coding efficient software.</br></br>
+My 3+ years of experience in web technologies like J2EE/Jersey, Node.js, Angular.js, c#, MongoDB, MySQL,
+Linux with Appointy and TechShanty provides me with a rich experience in coding and maintaining
+ large scalable applications.</br></br>
+Working at Appointy as Software Developer Intern, I was involved in Full stack development of a SAAS
+application which is used by 65,000+ business worldwide. '
+author_image: '/images/author.jpg'
 
-      ```liquid
-      {% seo %}
-      ```
-
-For more information about configuring this plugin, see the official [Jekyll SEO Tag](https://github.com/jekyll/jekyll-seo-tag) page.
-
-
-### Stylesheet
-
-If you'd like to add your own custom styles:
-
-1. Create a file called `/assets/css/style.scss` in your site
-2. Add the following content to the top of the file, exactly as shown:
-    ```scss
-    ---
-    ---
-
-    @import "{{ site.theme }}";
-    ```
-3. Add any custom CSS (or Sass, including imports) you'd like immediately after the `@import` line
-
-### Layouts
-
-If you'd like to change the theme's HTML layout:
-
-1. [Copy the original template](https://gitlab.com/lorepirri/jekyll-theme-simple-blog/blob/master/_layouts/default.html) from the theme's repository<br />(*Pro-tip: click "raw" to make copying easier*)
-2. Create a file called `/_layouts/default.html` in your site
-3. Paste the default layout content copied in the first step
-4. Customize the layout as you'd like
-
-### Sass variables
-
-If you'd like to change the theme's [Sass variables](https://gitlab.com/lorepirri/jekyll-theme-simple-blog/blob/master/_sass/variables.scss), set new values before the `@import` line in your stylesheet:
-
-```scss
-$section-headings-color: #0086b3;
-
-@import "{{ site.theme }}";
+# social proiles
+facebook: 'https://www.facebook.com/lavkumarv'
+twitter: 'https://twitter.com/LAV_K_V'
+linkedin: 'https://www.linkedin.com/in/lav-vishwakarma/'
+instagram: 'https://www.instagram.com/vishwakarmalav/'
+github: 'https://github.com/lavkumarv'
+google-plus: 'https://plus.google.com/+LAVKUMARVISHWAKARMAdev'
+stackoverflow: 'http://stackoverflow.com/users/4703818/lav-kumar-vishwakarma'
+#####################################################################
+---
+```
+Navigation Bar(nav.yml):
+``` yaml
+main:
+    - { url: '/about', text: 'About' }
+---
 ```
 
-## Roadmap
+## Post Formate:
 
-See the [open issues](https://gitlab.com/lorepirri/jekyll-theme-simple-blog/issues) for a list of proposed features (and known issues).
+Image Post:
+``` json
+layout: blog
+title: 'Sample post to check the functionality'
+date: 2017-01-24 12:11:34
+categories: blog
+tags: code
+image: '/images/default.jpg'
+lead_text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+```
+Video Post:
+``` json
+layout: blog
+title: 'Sample post to check the functionality'
+date: 2017-01-24 12:11:34
+categories: blog
+tags: code
+image: '/images/default.jpg'
+lead_text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.'
+```
+## Built With
 
-## Project philosophy
-
-The Simple Blog Theme is intended to make it quick and easy for Gitlab or GitHub Pages users to create their first (or 100th) website. The theme should meet the vast majority of users' needs out of the box, erring on the side of simplicity rather than flexibility, and provide users the opportunity to opt-in to additional complexity if they have specific needs or wish to further customize their experience (such as adding custom CSS or modifying the default layout). It should also look great, but that goes without saying.
+* [Bootstrap](http://getbootstrap.com/) - The css framework used
 
 ## Contributing
 
-Interested in contributing to Simple Blog? We'd love your help. Simple Blog is an open source project, built one contribution at a time by users like you. See [the CONTRIBUTING file](CONTRIBUTING.md) for instructions on how to contribute.
+Contributions are welcome!. Feel free to add a new feature or fix a bug.
 
-### Previewing the theme locally
+## Authors
 
-If you'd like to preview the theme locally (for example, in the process of proposing a change):
+* **Lav Kumar Vishwakarma** - *Initial work* - [lavkumarv](https://github.com/lavkumarv)
 
-1. Clone down the theme's repository (`git clone https://gitlab.com/lorepirri/jekyll-theme-simple-blog`)
-2. `cd` into the theme's directory
-3. Run `script/bootstrap` to install the necessary dependencies
-4. Run `script/server` to start the preview server
-5. Visit [`localhost:4000`](http://localhost:4000) in your browser to preview the theme
+## License
 
-
-[`.gitlab-ci.yml`]: https://gitlab.com/jekyll-themes/default-bundler/blob/master/.gitlab-ci.yml
-[`Gemfile`]: https://gitlab.com/jekyll-themes/default-bundler/blob/master/Gemfile
-[`.gitignore`]: https://gitlab.com/jekyll-themes/default-bundler/blob/master/.gitignore
-[`_config.yml`]: https://gitlab.com/jekyll-themes/default-bundler/blob/master/_config.yml
-
-[Bundler]: http://bundler.io/
-[Jekyll]: http://jekyllrb.com/
-[jek-312]: https://rubygems.org/gems/jekyll/versions/3.1.2
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details

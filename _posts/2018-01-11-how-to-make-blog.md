@@ -5,7 +5,7 @@ date: 2018-01-11 20:19:34
 categories: blog
 tags: code
 image: '/images/default.jpg' 
-lead_text: '리드텍스트...??'
+lead_text: 'jekyll을 이용하여 블로그를 생성하여 봅니다.'
 ---
 
 지킬을 이용하면 추가적인 서버나, 도메인을 등록할 필요 없이

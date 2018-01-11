@@ -1,10 +1,10 @@
-# Site Settings
+ï»¿# Site Settings
 title: 'jhjang04'
-description: 'jhjang04ÀÇ ºí·Î±×'
+description: 'jhjang04ì˜ ë¸”ë¡œê·¸'
 url: 'https://jhjang04.github.io/'
 
 # Admin Settings
-admin_name: 'ÀåÁØÈ£'
+admin_name: 'ì¥ì¤€í˜¸'
 admin_email: 'jjh920415@naver.com'
 
 #####################################################################
@@ -16,17 +16,17 @@ admin_email: 'jjh920415@naver.com'
 #Working at Appointy as Software Developer Intern, I was involved in Full stack development of a SAAS application which is used by 65,000+ business worldwide. '
 #author_image: '/images/author.jpg'
 
-author_name: '¼ö¼®´Ô.. °³¹ßÀÚ°¡ µÇ°í½Í¾î¿ä'
-author_profession: 'Æ÷±âÇÏ¸é ÆíÇØ....'
+author_name: 'ìˆ˜ì„ë‹˜ ê°œë°œìê°€ ë˜ê³ ì‹¶ì–´ìš”'
+author_profession: 'í¬ê¸°í•˜ë©´ í¸í•´....'
 author_description: '2018. NHN Entertainment ÀÔ»ç'
 author_image: '/images/author.jpg'
 
 # social proiles
-facebook: 'https://www.facebook.com/lavkumarv'
-twitter: 'https://twitter.com/LAV_K_V'
-linkedin: 'https://www.linkedin.com/in/lav-vishwakarma/'
-instagram: 'https://www.instagram.com/vishwakarmalav/'
-github: 'https://github.com/lavkumarv'
-google-plus: 'https://plus.google.com/+LAVKUMARVISHWAKARMAdev'
-stackoverflow: 'http://stackoverflow.com/users/4703818/lav-kumar-vishwakarma'
+#facebook: 'https://www.facebook.com/lavkumarv'
+#twitter: 'https://twitter.com/LAV_K_V'
+#linkedin: 'https://www.linkedin.com/in/lav-vishwakarma/'
+#instagram: 'https://www.instagram.com/vishwakarmalav/'
+#github: 'https://github.com/lavkumarv'
+#google-plus: 'https://plus.google.com/+LAVKUMARVISHWAKARMAdev'
+#stackoverflow: 'http://stackoverflow.com/users/4703818/lav-kumar-vishwakarma'
 #####################################################################

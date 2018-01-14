@@ -4,7 +4,7 @@ description: 'jhjang04의 블로그'
 url: 'https://jhjang04.github.io/'
 
 # Admin Settings
-admin_name: '장준호'
+admin_name: 'jhjang04'
 admin_email: 'jjh920415@naver.com'
 
 #####################################################################
@@ -16,10 +16,10 @@ admin_email: 'jjh920415@naver.com'
 #Working at Appointy as Software Developer Intern, I was involved in Full stack development of a SAAS application which is used by 65,000+ business worldwide. '
 #author_image: '/images/author.jpg'
 
-author_name: '수석님 개발자가 되고싶어요'
-author_profession: '포기하면 편해....'
+author_name: 'jhjang04'
+author_profession: '안녕하세요!'
 author_description: '2018. NHN Entertainment 입사'
-author_image: '/images/author.jpg'
+#author_image: '/images/author.jpg'
 
 # social proiles
 #facebook: 'https://www.facebook.com/lavkumarv'

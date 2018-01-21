@@ -3,7 +3,7 @@ layout: blog
 title: 'Jekyll을 블로그 만들기1 - 블로그 생성'
 date: 2018-01-11 20:19:34
 categories: blog
-tags: code
+tags: 
 image: '/images/default.jpg' 
 lead_text: 'jekyll을 이용하여 블로그를 생성하여 봅니다.'
 ---

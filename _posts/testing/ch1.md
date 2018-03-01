@@ -9,17 +9,12 @@ lead_text:
 ---
 
 
-# Chapter 1. 
+# Chapter 1 – Fundamentals of Web Application Performance Testing
 
 ## 용어
-- Capacity : 수용량
-수용 기준을 위반하지 않고 처리 할 수있는 총 작업량
-- Capacity test
-
+- Capacity(용량) : 수용 기준을 위반하지 않고 처리 할 수있는 총 작업량
+- Capacity test 
 - Component test
-아키텍처의 컴포넌트를 테스트 
-ex) 서버, DB, 네트워크, 방화벽, 스토리지
-
 - Endurance test
 - Investigation
 - Latency

@@ -2,8 +2,8 @@
 description:  This is personal blog.
 baseurl: "/"
 url: "https://jhjang04.github.io/" 
-twitter_username: LAV_K_V
-github_username:  lavkumarv
+twitter_username: 
+github_username:  jhajng04
 include: ['_pages']
 
 # Build settings

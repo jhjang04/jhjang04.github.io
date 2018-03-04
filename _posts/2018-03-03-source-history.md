@@ -1,6 +1,6 @@
 ---
 layout: blog
-title: 'NHN 엔터 기술교육 정리'
+title: 'NHN 엔터 기술교육 소스코드 history'
 date: 2018-03-03 22:19:34
 categories: blog
 tags: 
@@ -14,7 +14,8 @@ lead_text:
 스프링 프로젝트를 처음 시작할 떄 mybatis를 사용하였다.  
 필요한 sql을 xml파일에 작성 한 후 작성한 도메인으로 값을 넘기거나 받아왔다.  
 문득 이러한 도메인을 자동으로 생성할 방법이 없을까? 라는 의문이 들었고, 바로 구글링을 해본 결과...  
-![]({{"/images/basecamp-final/googling-mybatis-auto-generate.png" | absolute_url}}}  
+![]({{ "images/basecamp-final/googling-mybatis-auto-generate.png" | absolute_url}}}  
+
 
 mybatis-generator라는것을 찾았고, 바로 사용하였다.  
 그리고 아래의 코드가 생성되었다.  
@@ -193,7 +194,7 @@ public class WeriteMail{
   
 이러한 고민 끝에 각각의 도메인의 변환을 다른 인터페이스에 위임하여 진행하자는 생각이 들었다.
 
-![]({{"/images/basecamp-final/converter.png" | absolute_url}}}  
+![]({{ "images/basecamp-final/converter.png" | absolute_url}}}  
 이렇게 모든 도메인들은 DataConver를 거쳐서 다른 도메인으로 변환되게 하였다.  
   
 자, 이제 타입의 변환이 필요할 때 필요한 converter를 사용하면 된다.  

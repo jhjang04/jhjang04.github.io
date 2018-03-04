@@ -15,7 +15,7 @@ NHN 엔터 기술교육이 끝나가고 있다.
 블로그를 쓰는 활동은 내가 배웠던것, 했던것들을 정리하기 좋은 활동이고,  
 마크다운 언어에 익숙해지는대도 큰 도움을 준다.
 자새한 내용은 아래의 링크를 참조한다.  
-[Jekyll을 블로그 만들기1 - 블로그 생성]https://jhjang04.github.io//blog/2018/01/11/how-to-make-blog.html
+[Jekyll을 블로그 만들기1 - 블로그 생성](https://jhjang04.github.io//blog/2018/01/11/how-to-make-blog.html)
 
 
 ## Git & Github
@@ -26,12 +26,12 @@ NHN 엔터 기술교육이 끝나가고 있다.
 - 완벽한 분산
 - 리눅스 커널 같은 대형 프로젝트에도 유용할 것(속도나 데이터 크기 면에서)  
 자세한 내용은 아래의 링크를 참조한다.  
-[git]https://git-scm.com/book/ko/v1
+[git](https://git-scm.com/book/ko/v1)
 
 소스트리와 같은 툴을 이용하면 많은 명령어를 외우지 않고도 쉽게 소스 이력을 조회하고 push, pull 명령어를 사용할 수 있다.
 
 
-## 소스코드 변천사
+## 소스코드 history
 기술교육을 받으며 진행했던 프로젝트의 시작과 끝(아직 진행중이지만)의 소스는 정말 바뀐점이 많다.  
 어떠한 생각을 하며 어떻게 바뀌었는지 아래의 포스팅에서 자세히 정리해 놓았다.  
-[소스코드 변천사]https://jhjang04.github.io//blog/2018/03/03/source-history.html
+[소스코드 history](https://jhjang04.github.io//blog/2018/03/03/source-history.html)

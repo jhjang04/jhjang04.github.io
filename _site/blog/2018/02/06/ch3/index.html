@@ -1,0 +1,238 @@
+<p>토비의 스프링 3.1을 보면 3장에 초난감 DAO를 전략패턴과 템플릿 패턴을 적용한다.<br />
+여기서 나오는 전략 패턴과 템플릿 메쏘드 패턴이 무엇인지 정리해 보려한다.</p>
+
+<p>아래의 나오는 코드는 HeadFirst Design Patterns과 토비의 스프링 3.1에 나오는 예제이다.</p>
+<h1 id="strategy-pattern전략-패턴">strategy pattern(전략 패턴)</h1>
+<p>책에 적혀있는 전략패턴의 설명은 다음과 같다.</p>
+
+<p>알고리즘군을 정의하고 각각을 캡슐화하여 바꿔 쓸 수 있게 만든다. 스트래티지 패턴을 이용하면 알고리즘을 활용하는 클라이언트와 독릭적으로 알고리즘을 변경할 수 있다.</p>
+
+<p><img src="./strategy.png" alt="strategy" /></p>
+
+<p>위의 다이어그램과 같이 Duck 클래스는 인터페이스만을 가지고 있고, 각각의 구현은 인터페이스를 상속받아 직접 구현하고 있다.<br />
+토비의 스프링 2장을 마무리할 때 DAO는 다음과 같았다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">package</span> <span class="n">springbook</span><span class="o">.</span><span class="na">user</span><span class="o">.</span><span class="na">dao</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.sql.DataSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.dao.EmptyResultDataAccessException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">springbook.user.domain.User</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDao</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">;</span>
+		
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDataSource</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">dataSource</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span>
+			<span class="s">"insert into users(id, name, password) values(? , ?, ?)"</span><span class="o">);</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+
+		<span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+
+		<span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">c</span>
+				<span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"select * from users where id = ?"</span><span class="o">);</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+		
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+
+		<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+			<span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"password"</span><span class="o">));</span>
+		<span class="o">}</span>
+
+		<span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		
+		<span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">EmptyResultDataAccessException</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+		<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">deleteAll</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+	
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"delete from users"</span><span class="o">);</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+
+		<span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+	<span class="o">}</span>	
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span>  <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+	
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"select count(*) from users"</span><span class="o">);</span>
+
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+		<span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+		<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+		<span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+	
+		<span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>결론부터 말하자면 이 소스는 전략 패턴을 적용하며 아래의 소스와 같이 변화한다.</p>
+
+<p>StatementStrategy.java</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">StatementStrategy</span> <span class="o">{</span>
+	<span class="n">PreparedStatement</span> <span class="nf">makePreparedStatement</span><span class="o">(</span><span class="n">Connection</span> <span class="n">c</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span><span class="o">;</span> 
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>UserDao.java</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="kn">import</span> <span class="nn">java.sql.Connection</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.PreparedStatement</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.ResultSet</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.sql.SQLException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.sql.DataSource</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.springframework.dao.EmptyResultDataAccessException</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">springbook.user.domain.User</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserDao</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">;</span>
+		
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setDataSource</span><span class="o">(</span><span class="n">DataSource</span> <span class="n">dataSource</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">dataSource</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">jdbcContextWithStatementStrategy</span><span class="o">(</span><span class="n">StatementStrategy</span> <span class="n">stmt</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">c</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+
+			<span class="n">ps</span> <span class="o">=</span> <span class="n">stmt</span><span class="o">.</span><span class="na">makePreparedStatement</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+		
+			<span class="n">ps</span><span class="o">.</span><span class="na">executeUpdate</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">throw</span> <span class="n">e</span><span class="o">;</span>
+		<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">ps</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="k">try</span> <span class="o">{</span> <span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span> <span class="o">}</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="k">try</span> <span class="o">{</span><span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SQLException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span> <span class="o">}</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="kd">final</span> <span class="n">User</span> <span class="n">user</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">jdbcContextWithStatementStrategy</span><span class="o">(</span>
+				<span class="k">new</span> <span class="nf">StatementStrategy</span><span class="o">()</span> <span class="o">{</span>			
+					<span class="kd">public</span> <span class="n">PreparedStatement</span> <span class="nf">makePreparedStatement</span><span class="o">(</span><span class="n">Connection</span> <span class="n">c</span><span class="o">)</span>
+					<span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+						<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> 
+							<span class="n">c</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"insert into users(id, name, password) values(?,?,?)"</span><span class="o">);</span>
+						<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+						<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+						<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">3</span><span class="o">,</span> <span class="n">user</span><span class="o">.</span><span class="na">getPassword</span><span class="o">());</span>
+						
+						<span class="k">return</span> <span class="n">ps</span><span class="o">;</span>
+					<span class="o">}</span>
+				<span class="o">}</span>
+		<span class="o">);</span>
+	<span class="o">}</span>
+
+
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">id</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">c</span>
+				<span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"select * from users where id = ?"</span><span class="o">);</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">setString</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+		
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+
+		<span class="n">User</span> <span class="n">user</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">())</span> <span class="o">{</span>
+			<span class="n">user</span> <span class="o">=</span> <span class="k">new</span> <span class="n">User</span><span class="o">();</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setId</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"id"</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"name"</span><span class="o">));</span>
+			<span class="n">user</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">rs</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"password"</span><span class="o">));</span>
+		<span class="o">}</span>
+
+		<span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		
+		<span class="k">if</span> <span class="o">(</span><span class="n">user</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="k">throw</span> <span class="k">new</span> <span class="n">EmptyResultDataAccessException</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+		<span class="k">return</span> <span class="n">user</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">deleteAll</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+		<span class="n">jdbcContextWithStatementStrategy</span><span class="o">(</span>
+			<span class="k">new</span> <span class="nf">StatementStrategy</span><span class="o">()</span> <span class="o">{</span>
+				<span class="kd">public</span> <span class="n">PreparedStatement</span> <span class="nf">makePreparedStatement</span><span class="o">(</span><span class="n">Connection</span> <span class="n">c</span><span class="o">)</span>
+						<span class="kd">throws</span> <span class="n">SQLException</span> <span class="o">{</span>
+					<span class="k">return</span> <span class="n">c</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"delete from users"</span><span class="o">);</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+		<span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getCount</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SQLException</span>  <span class="o">{</span>
+		<span class="n">Connection</span> <span class="n">c</span> <span class="o">=</span> <span class="n">dataSource</span><span class="o">.</span><span class="na">getConnection</span><span class="o">();</span>
+	
+		<span class="n">PreparedStatement</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">c</span><span class="o">.</span><span class="na">prepareStatement</span><span class="o">(</span><span class="s">"select count(*) from users"</span><span class="o">);</span>
+
+		<span class="n">ResultSet</span> <span class="n">rs</span> <span class="o">=</span> <span class="n">ps</span><span class="o">.</span><span class="na">executeQuery</span><span class="o">();</span>
+		<span class="n">rs</span><span class="o">.</span><span class="na">next</span><span class="o">();</span>
+		<span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="n">rs</span><span class="o">.</span><span class="na">getInt</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+
+		<span class="n">rs</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">ps</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+	
+		<span class="k">return</span> <span class="n">count</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<p>deleteAll 함수와 add 함수를 보면 커넥션을 얻고, 자원을 반납하는 공통적인 과정을 재사용하며, 다른 부분인 질의문을 인터페이스로 정의하는것을 확인 할 수 있다.<br />
+알고리즘(행동, 위 소스에서는 스테이트먼트 반환) 이 교체될 수 있는 부분을 캡슐화하여 확장성 있고 유연한 패턴이다.</p>
+
+<h2 id="마무리-하며">마무리 하며….</h2>
+<p>다음 블로그는 템플릿 패턴과 토비의 스프링에서 dao를 어떻게 바꿔가는지 살펴보겠다.<br />
+그리고 페이지 버그도 얼른 고쳐야겠다…</p>
+

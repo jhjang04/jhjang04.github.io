@@ -1,0 +1,39 @@
+<ul>
+  <li>bean : 스프링의 제어권을 가지고 직접 만들고고 관계를 부여하는 오브젝트
+      오브젝트 단위의 애플리케이션 컴포넌트
+      스프링 컨테이너가 생성과 관계설정, 사용 등을 제어해주는 제어의 역전이 적용된 오브젝트</li>
+  <li>bean factory : 빈의 생성과 관계설정 같은 제어를 담당하는 IoC 오브젝트</li>
+  <li>application context : IoC 방식을 따라 만들어진 일종의 빈 팩토리</li>
+</ul>
+
+<p>제어의 역전(IoC) : 프로그램의 제어 흐름 구조가 뒤바뀌는 것</p>
+
+<p>보통 사용하는 쪽이 무엇을 사용할것인지 제어.
+제어의 역전은 오브젝트가 자신이 사용할 오브젝트를 스스로 선택하지 않고, 생성하지도 않으며, 어떻게 생성되는지도 모른다.</p>
+
+<ul>
+  <li>프레임워크는 제어의 역전이 존재해야함</li>
+</ul>
+
+<p>라이브러리 : 라이브러리의 기능을 사용
+프레임워크 : 내가 작성한 코드를 프레임워크가 사용</p>
+
+<hr />
+
+<ul>
+  <li>
+    <p>TDD : Test Driven Development, 테스트 주도개발</p>
+  </li>
+  <li>
+    <p>Junit : 자바 단위테스트를 우한 프레임워크
+함수 위에 @Test 어노테이션을 작성하면 Junit에서 동작<br /> 
+<code>if(a.equals(b) ) -&gt; assertThat(a,is(b));</code></p>
+  </li>
+</ul>
+
+<p>예상되는 exception을 테스트하기 위한 코드.<br />
+<code>
+@Test(excepted=........Exception.class)
+public void func(){...}
+</code></p>
+

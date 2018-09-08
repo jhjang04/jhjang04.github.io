@@ -1,48 +1,21 @@
-﻿# Basic settings
-description:  This is personal blog.
-baseurl: "/"
-url: "https://jhjang04.github.io/" 
-twitter_username: 
-github_username:  jhajng04
-include: ['_pages']
+# Site settings
+title: "TextLog"
+description: "Minimalist Jekyll theme for documentation site"
+baseurl: "/textlog" # required if used under gh-pages branch, else (under master branch) just leave empty/blank
+url: ""
+author: "John Doe"
 
 # Build settings
-markdown:    kramdown
-#highlighter: pygments  github unsupported
-highlighter: rouge
-lsi:         false
-excerpt_separator: "\n\n"
-gems:
-  - jekyll-feed
-  - jekyll-paginate
-exclude:
-  - Gemfile
-  - Gemfile.lock
-
-# pagination
-gems: [jekyll-paginate]
-paginate: 5
-paginate_path: "/page:num/"
-
-# Enable comments
-comments: true
-
-# Markdown settings
 kramdown:
-  auto_ids:       true
-  footnote_nr:    1
-  entity_output:  as_char
-  toc_levels:     1..6
-  smart_quotes:   lsquo,rsquo,ldquo,rdquo
-  enable_coderay: false
+  input: GFM
+permalink: pretty
 
-  coderay:
-    coderay_wrap:              div
-    coderay_line_numbers:      inline
-    coderay_line_number_start: 1
-    coderay_tab_width:         4
-    coderay_bold_every:        10
-    coderay_css:               style
+# Third-party services
+# just leave empty to disable it
+google_analytics:
+disqus_shortname: 
 
+plugins:
+  - jekyll-sitemap
 
-permalink: /:year/:month/:day/:title/
+exclude: ["LICENSE", "README.md", "CNAME", "vendor", "Gemfile", "script"]

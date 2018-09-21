@@ -3,10 +3,10 @@
   <channel>
     <title>TextLog</title>
     <description>Minimalist Jekyll theme for documentation site</description>
-    <link>http://localhost:4000/textlog/</link>
-    <atom:link href="http://localhost:4000/textlog/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sat, 08 Sep 2018 22:21:43 +0900</pubDate>
-    <lastBuildDate>Sat, 08 Sep 2018 22:21:43 +0900</lastBuildDate>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Fri, 21 Sep 2018 20:04:25 +0900</pubDate>
+    <lastBuildDate>Fri, 21 Sep 2018 20:04:25 +0900</lastBuildDate>
     <generator>Jekyll v3.8.3</generator>
     
       <item>
@@ -250,12 +250,10 @@
 그리고 페이지 버그도 얼른 고쳐야겠다…&lt;/p&gt;
 
 </description>
-        <pubDate>Tue, 06 Feb 2018 05:19:34 +0900</pubDate>
-        <link>http://localhost:4000/textlog/blog/2018/02/06/ch3/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/blog/2018/02/06/ch3/</guid>
+        <pubDate>Mon, 05 Feb 2018 00:00:00 +0900</pubDate>
+        <link>/2018/02/05/ch3/</link>
+        <guid isPermaLink="true">/2018/02/05/ch3/</guid>
         
-        
-        <category>blog</category>
         
       </item>
     
@@ -302,8 +300,8 @@ public void func(){...}
 
 </description>
         <pubDate>Sun, 21 Jan 2018 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/textlog/2018/01/21/spring1/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/2018/01/21/spring1/</guid>
+        <link>/2018/01/21/spring1/</link>
+        <guid isPermaLink="true">/2018/01/21/spring1/</guid>
         
         
       </item>
@@ -328,10 +326,32 @@ fork를 받은 뒤 레파지토리명을 변경을 하는 방법으로 블로그
 &lt;h3 id=&quot;3-확인&quot;&gt;3. 확인&lt;/h3&gt;
 &lt;p&gt;https://[user_name].github.io/ 사이트에 들어가 홈페이지를 확인하면된다.&lt;br /&gt;
 마스터 브랜치에 pull을 한 뒤 깃허브에 등록된 이메일로 빌드가 완료되었거나, 빌드가 실패하였다는 이메일이 발송되니, 에러가 뜨거나, 수정 후 적용이 되지 않는다면 메일을 확인해 보아도 된다..&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-uml&quot;&gt;a-&amp;gt;b: asd
+b-&amp;gt;c: adsasd
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;asd&lt;/th&gt;
+      &lt;th&gt;zcv&lt;/th&gt;
+      &lt;th&gt;xsdf&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;zxc&lt;/td&gt;
+      &lt;td&gt;vcv&lt;/td&gt;
+      &lt;td&gt;cxc&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 </description>
         <pubDate>Thu, 11 Jan 2018 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/textlog/2018/01/11/how-to-make-blog/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/2018/01/11/how-to-make-blog/</guid>
+        <link>/2018/01/11/how-to-make-blog/</link>
+        <guid isPermaLink="true">/2018/01/11/how-to-make-blog/</guid>
         
         
       </item>
@@ -347,8 +367,8 @@ fork를 받은 뒤 레파지토리명을 변경을 하는 방법으로 블로그
 &lt;p&gt;It’s an immensely useful tool. Find out more by &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;visiting the project on GitHub&lt;/a&gt;.&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Jan 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/textlog/2017/01/15/whats-jekyll/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/2017/01/15/whats-jekyll/</guid>
+        <link>/2017/01/15/whats-jekyll/</link>
+        <guid isPermaLink="true">/2017/01/15/whats-jekyll/</guid>
         
         <category>Demo</category>
         
@@ -397,8 +417,8 @@ fork를 받은 뒤 레파지토리명을 변경을 하는 방법으로 블로그
 &lt;p&gt;&lt;a href=&quot;http://www.alienshore.com/seeking/&quot;&gt;Rick Pali&lt;/a&gt; submitted this article to alt.fonts faqs because it was stated there that no one knew where it came from.&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Jan 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/textlog/2017/01/15/history-of-lorem-ipsum/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/2017/01/15/history-of-lorem-ipsum/</guid>
+        <link>/2017/01/15/history-of-lorem-ipsum/</link>
+        <guid isPermaLink="true">/2017/01/15/history-of-lorem-ipsum/</guid>
         
         <category>Demo</category>
         
@@ -544,8 +564,8 @@ fork를 받은 뒤 레파지토리명을 변경을 하는 방법으로 블로그
 &lt;/div&gt;
 </description>
         <pubDate>Sun, 15 Jan 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/textlog/2017/01/15/example-content/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/2017/01/15/example-content/</guid>
+        <link>/2017/01/15/example-content/</link>
+        <guid isPermaLink="true">/2017/01/15/example-content/</guid>
         
         <category>Demo</category>
         
@@ -572,8 +592,8 @@ fork를 받은 뒤 레파지토리명을 변경을 하는 방법으로 블로그
 &lt;p&gt;&lt;a href=&quot;https://github.com/heiswayi/textlog&quot;&gt;Source code on GitHub&lt;/a&gt;&lt;/p&gt;
 </description>
         <pubDate>Sun, 15 Jan 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/textlog/2017/01/15/about-this-jekyll-theme/</link>
-        <guid isPermaLink="true">http://localhost:4000/textlog/2017/01/15/about-this-jekyll-theme/</guid>
+        <link>/2017/01/15/about-this-jekyll-theme/</link>
+        <guid isPermaLink="true">/2017/01/15/about-this-jekyll-theme/</guid>
         
         <category>Demo</category>
         
